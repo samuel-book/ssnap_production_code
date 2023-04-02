@@ -2,6 +2,7 @@
 /admin
 data/
 temp/
+output/
 
 # Ignore file types that may contain data or models
 *.h5
