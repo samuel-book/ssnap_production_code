@@ -1,3 +1,5 @@
+import pandas as pd
+
 class GlobVars:
     """
     Object to store global variables
@@ -8,9 +10,20 @@ class GlobVars:
         Initialize the global variables object.
         """
 
-        self.test = 10 
-
         # Update the GlobVars object with keyword arguments passed to the constructor
         self.__dict__.update(args)
         self.__dict__.update(kwargs)
+
+        # Load data
+        self.load_data()
+
+
+    def load_data(self):
+        """
+        Load data into the global variables object.
+        """
+
+        self.original_data: pd.DataFrame = pd.read_csv('./data/data.csv')
+
+
 
