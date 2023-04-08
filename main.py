@@ -1,11 +1,49 @@
-"""
-Main SSNAP machine learning and pathway simulation code.
-"""
+import output.output
+from globvars import GlobVars
+
+class Samuel(object):
+    """
+    Main class for the Samuel simulation.
+    
+    ...
+
+    Atrributes:
+    -----------
+    globvars:object
+        Object to store global variables.
+
+
+    Methods:
+    --------
+
+    __init__(self, *args, **kwargs).
+        Initialize the Samuel analysis model.
+
+    run()
+        Run the Samuel simulation.
+
+    """
+    
+    def __init__(self, *args, **kwargs):
+        """
+        Initialize the Samuel analysis model.
+        """
+        
+        # Set up global variables
+        self.globvars:object = GlobVars(*args, **kwargs)
+    
+    def run(self):
+        """
+        Run the Samuel simulation.
+        """
+        
+        pass
 
 
 if __name__ == "__main__":
     """
     Main function.
     """
-    
-    pass
+
+    sam = Samuel()
+    sam.run()
