@@ -11,5 +11,6 @@ class GlobVars:
         self.test = 10 
 
         # Update the GlobVars object with keyword arguments passed to the constructor
+        self.__dict__.update(args)
         self.__dict__.update(kwargs)
 

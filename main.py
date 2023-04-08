@@ -7,19 +7,19 @@ class Samuel(object):
     
     ...
 
-    Atrributes:
+    Parameters:
     -----------
-    globvars:object
+    globvars : object
         Object to store global variables.
 
 
     Methods:
     --------
 
-    __init__(self, *args, **kwargs).
+    __init__(self, *args, **kwargs):
         Initialize the Samuel analysis model.
 
-    run()
+    run():
         Run the Samuel simulation.
 
     """
@@ -27,6 +27,11 @@ class Samuel(object):
     def __init__(self, *args, **kwargs):
         """
         Initialize the Samuel analysis model.
+
+        Parameters:
+        -----------
+        globvars : object
+            Object to store global variables.
         """
         
         # Set up global variables
