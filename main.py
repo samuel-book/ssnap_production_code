@@ -50,5 +50,5 @@ if __name__ == "__main__":
     Main function.
     """
 
-    sam = Samuel()
+    sam = Samuel(minimum_admissions_per_year=600)
     sam.run()
