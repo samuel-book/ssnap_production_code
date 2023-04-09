@@ -4,6 +4,7 @@ data/
 temp/
 output/images/
 output/report/
+.vscode/
 
 
 # Ignore file types that may contain data or models or results
