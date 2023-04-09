@@ -1,4 +1,6 @@
-import output.output
+from output.output import Output
+from output.report import Report
+
 from globvars import GlobVars
 
 class Samuel(object):
@@ -42,7 +44,10 @@ class Samuel(object):
         Run the Samuel simulation.
         """
         
-        pass
+        self.output = Output()
+        self.report = Report(self.output)
+        self.report.generate_report()
+        self.report.save('./output/report/report')
 
 
 if __name__ == "__main__":
