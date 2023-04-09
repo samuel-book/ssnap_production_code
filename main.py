@@ -1,12 +1,12 @@
+from globvars import GlobVars
 from output.output import Output
 from output.report import Report
 
-from globvars import GlobVars
 
 class Samuel(object):
     """
     Main class for the Samuel simulation.
-    
+
     ...
 
     Parameters:
@@ -25,7 +25,7 @@ class Samuel(object):
         Run the Samuel simulation.
 
     """
-    
+
     def __init__(self, *args, **kwargs):
         """
         Initialize the Samuel analysis model.
@@ -35,15 +35,15 @@ class Samuel(object):
         globvars : object
             Object to store global variables.
         """
-        
+
         # Set up global variables
-        self.globvars:object = GlobVars(*args, **kwargs)
-    
+        self.globvars: object = GlobVars(*args, **kwargs)
+
     def run(self):
         """
         Run the Samuel simulation.
         """
-        
+
         self.output = Output()
         self.report = Report(self.output)
         self.report.generate_report()

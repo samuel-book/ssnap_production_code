@@ -3,6 +3,30 @@ import pylatex
 class Report(object):
     """
     This class builds the report.
+
+    ...
+
+    Attributes:
+    -----------
+
+    output : object
+        The output from the SAMuel model.
+
+    doc : object
+        The pylatex document.
+        
+
+    Methods:
+    --------
+    
+    gererate_report(self):
+        Generate the report.
+        
+    generate_title_pages(self):
+        Generate the title pages.
+
+    save(self, filename):
+        Save the report to a file.
     """
 
     def __init__(self, output):
