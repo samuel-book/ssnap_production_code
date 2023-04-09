@@ -26,7 +26,7 @@ class Samuel(object):
 
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize the Samuel analysis model.
 
@@ -34,18 +34,26 @@ class Samuel(object):
         -----------
         globvars : object
             Object to store global variables.
+
+        output : object
+            Object to store the output of the simulation.
+
+        report : object
+            Object to store the report of the simulation.
         """
 
         # Set up global variables
-        self.globvars: object = GlobVars(*args, **kwargs)
+        self.globvars: GlobVars = GlobVars(*args, **kwargs)
 
-    def run(self):
+        # Set up output and report objects
+        self.output: Output = Output(self.globvars)
+        self.report: Report = Report(self.output)
+
+    def run(self) -> None:
         """
         Run the Samuel simulation.
         """
 
-        self.output = Output()
-        self.report = Report(self.output)
         self.report.generate_report()
         self.report.save('./output/report/report')
 
@@ -55,5 +63,5 @@ if __name__ == "__main__":
     Main function.
     """
 
-    sam = Samuel(minimum_admissions_per_year=600)
+    sam: object = Samuel(minimum_admissions_per_year=100)
     sam.run()
