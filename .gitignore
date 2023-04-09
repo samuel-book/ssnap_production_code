@@ -3,6 +3,7 @@ admin/
 data/
 temp/
 output/images/
+output/report/
 
 
 # Ignore file types that may contain data or models or results
