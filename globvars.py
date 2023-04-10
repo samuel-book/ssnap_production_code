@@ -57,7 +57,7 @@ class GlobVars:
         self.load_data()
 
         # Restrict data
-        self.reset_data()
+        self.restrict_data()
 
     def load_data(self):
         """
@@ -66,15 +66,35 @@ class GlobVars:
 
         self.original_data: pd.DataFrame = pd.read_csv('./data/data.csv')
 
-    def reset_data(self):
+        required_fields: list = [
+            'stroke team', 'age', 'male', 'infarction',
+            'onset-to-arrival time', 'onset time known', 'precise onset known',
+            'onset during sleep', 'arrive by ambulance', 'year',
+            'anticoagulant for atrial fibrillation', 'prior disability',
+            'arrival-to-scan time', 'thrombolysis', 
+            'scan-to-thrombolysis time', 'death', 'discharge disability'
+        ]
+
+        # Check required fields are present
+        for field in required_fields:
+            assert field in self.original_data.columns, \
+                f'Field {field} not present in data.'
+
+    def restrict_data(self):
         """
         Restrict the data to prescribed limits
         """
 
+        # Limit data to years of interest
+        restricted_years_data: pd.DataFrame = self.original_data[
+            (self.original_data['year'] >= self.year_start)
+            & (self.original_data['year'] <= self.year_end)]
+
+        # Calculate number of years
         number_of_years: int = self.year_end - self.year_start + 1
 
         # Create groupy object, by stroke team
-        groupby = self.original_data.groupby('stroke team')
+        groupby = restricted_years_data.groupby('stroke team')
 
         # Loop through groupby object and check stroke team within limits
         for stroke_team, group in groupby:

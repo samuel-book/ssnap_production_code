@@ -11,7 +11,7 @@ arrive by ambulance,S1ArriveByAmbulance,Binary (0/1),S1ArriveByAmbulance = ‘Y'
 year,S1FirstArrivalDateTime,Integer,Extract year (e.g. 2021)
 anticoagulant for atrial fibrillation,S2CoMAFAnticoagulent,Binary (0/1),S2CoMAFAnticoagulent = ‘Y'
 prior disability,S2RankinBeforeStroke,Integer,
-Arrival-to-scan time,(Derived),Integer,Derived arrival-to-scan time (minutes)
+arrival-to-scan time,(Derived),Integer,Derived arrival-to-scan time (minutes)
 thrombolysis,S2Thrombolysis,Binary (0/1),S2Thrombolysis = ‘Y'
 scan-to-thrombolysis time,(Derived),Integer,Derived scan-to-thrombolysis time
 death,S7DischargeType,Binary (0/1),S7DischargeType = ‘D'
