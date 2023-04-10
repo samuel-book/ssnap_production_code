@@ -1,8 +1,7 @@
 from globvars import GlobVars
 from output.output import Output
 from output.report import Report
-from machine_learning.xgb_model import XGBModel
-
+from xgbmodel.xbg_model import XGBModel
 
 class Samuel(object):
     """
