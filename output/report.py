@@ -28,7 +28,10 @@ class Report(object):
     Methods:
     --------
 
-    gererate_report(self):
+    generate_chapter_units_in_scope:
+        Generate chapter which lists units in scope:
+
+    generate_report(self):
         Generate the report.
 
     generate_title_pages(self):
@@ -57,6 +60,7 @@ class Report(object):
         self.doc.packages.append(pylatex.Package('geometry', options=[
             'a4paper', 'margin=2cm']))
         self.doc.packages.append(pylatex.Package('microtype'))
+        self.doc.append(pylatex.NoEscape(r'\linespread{1.2}'))
 
     def generate_title_pages(self) -> None:
         """
@@ -79,22 +83,29 @@ class Report(object):
     def generate_chapter_units_in_scope(self) -> None:
         """List units in scope, and those excluded."""
 
-        # Count number of units includes
-        self.doc.append(
-            'Number of units in scope: ' +
-            f'{len(self.output.globvars.included_teams)}')
-
         self.doc.append(pylatex.Section('Units in scope'))
 
-        # List units
+        # Preamble
+
         txt = (
             'For units to be in scope thay must have an average number ' +
             'of yearly admissions of at least ' +
             f'{self.output.globvars.minimum_admissions_per_year} and an ' +
             'average number of yearly thrombolysed patients of at least ' +
-            f'{self.output.globvars.minimum_thrombolysis_per_year}.\n')
-
+            f'{self.output.globvars.minimum_thrombolysis_per_year}.\n\n')
         self.doc.append(txt)
+
+        txt = (
+            f'Start year (inclusive): {self.output.globvars.year_start}\n' +
+            f'End year (inclusive): {self.output.globvars.year_end}\n\n')
+        self.doc.append(txt)
+
+        # Count number of units included
+        self.doc.append(
+            'Number of units in scope: ' +
+            f'{len(self.output.globvars.included_teams)}\n\n')
+
+        self.doc.append('Units included:')
 
         # Change text size to small and create list of units in scope
         self.doc.append(pylatex.Command('footnotesize'))
