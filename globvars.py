@@ -68,9 +68,9 @@ class GlobVars:
 
         required_fields: list = [
             'stroke team', 'age', 'male', 'infarction',
-            'onset-to-arrival time', 'onset time known', 'precise onset known',
+            'onset-to-arrival time', 'onset known', 'precise onset known',
             'onset during sleep', 'arrive by ambulance', 'year',
-            'anticoagulant for atrial fibrillation', 'prior disability',
+            'use of AF anticoagulants', 'prior disability',
             'arrival-to-scan time', 'thrombolysis', 
             'scan-to-thrombolysis time', 'death', 'discharge disability'
         ]
