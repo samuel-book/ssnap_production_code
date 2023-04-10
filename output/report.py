@@ -66,7 +66,7 @@ class Report(object):
         self.add_packages()
 
         # Build title
-        self.doc.preamble.append(pylatex.Command('title', 'Samuel Report'))
+        self.doc.preamble.append(pylatex.Command('title', 'SAMueL Report'))
         self.doc.preamble.append(pylatex.Command('author', 'Samuel'))
         self.doc.preamble.append(pylatex.Command(
             'date', pylatex.NoEscape(r'\today')))
@@ -79,8 +79,14 @@ class Report(object):
     def generate_chapter_units_in_scope(self) -> None:
         """List units in scope, and those excluded."""
 
+        # Count number of units includes
+        self.doc.append(
+            'Number of units in scope: ' +
+            f'{len(self.output.globvars.included_teams)}')
+
         self.doc.append(pylatex.Section('Units in scope'))
 
+        # List units
         txt = (
             'For units to be in scope thay must have an average number ' +
             'of yearly admissions of at least ' +
@@ -97,10 +103,6 @@ class Report(object):
             for unit in self.output.globvars.included_teams:
                 itemize.add_item(unit)
         self.doc.append(pylatex.Command('normalsize'))
-
-        self.doc.append(
-            'Number of units in scope: ' +
-            f'{len(self.output.globvars.included_teams)}')
 
     def generate_report(self) -> None:
         """
