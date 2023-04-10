@@ -63,5 +63,5 @@ if __name__ == "__main__":
     Main function.
     """
 
-    sam: object = Samuel(minimum_admissions_per_year=100)
+    sam: Samuel = Samuel(minimum_admissions_per_year=100)
     sam.run()

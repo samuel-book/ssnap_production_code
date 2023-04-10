@@ -1,3 +1,6 @@
+from globvars import GlobVars
+
+
 class Output(object):
 
     """
@@ -10,14 +13,14 @@ class Output(object):
     -----------
 
     globvars : object
-        Object to store global variables.
+        GlobVars object to store global variables.
 
     Methods:
     --------
 
     """
 
-    def __init__(self, globvars: object) -> None:
+    def __init__(self, globvars: GlobVars) -> None:
         """
         Constructor for the Output class.
         """

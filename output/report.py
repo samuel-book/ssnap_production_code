@@ -49,11 +49,21 @@ class Report(object):
         # Create a new pylatex document
         self.doc: pylatex.Document = pylatex.Document()
 
+    def add_packages(self) -> None:
+        """
+        Add packages to the report.
+        """
+
+        pass
+
     def generate_title_pages(self) -> None:
         """
         Generate the title pages.
         """
+        # Add packages
+        self.add_packages()
 
+        # Build title
         self.doc.preamble.append(pylatex.Command('title', 'Samuel Report'))
         self.doc.preamble.append(pylatex.Command('author', 'Samuel'))
         self.doc.preamble.append(pylatex.Command(
@@ -64,15 +74,38 @@ class Report(object):
 
         self.doc.append(pylatex.NoEscape(r'\newpage'))
 
+    def generate_chapter_units_in_scope(self) -> None:
+        """List units in scope, and those excluded."""
+
+        self.doc.append(pylatex.Section('Units in scope'))
+
+        txt = (
+            'For units to be in scope thay must have an average number ' +
+            'of yearly admissions of at least ' +
+            f'{self.output.globvars.minimum_admissions_per_year} and an ' +
+            'average number of yearly thrombolysed patients of at least ' +
+            f'{self.output.globvars.minimum_thrombolysis_per_year}.')
+
+        self.doc.append(txt)
+        self.doc.append(pylatex.LineBreak())
+
+        # Create LaTeX list of units in scope
+        with self.doc.create(pylatex.Itemize()) as itemize:
+            # Add each item from the Python list to the itemized list
+            for unit in self.output.globvars.included_teams:
+                itemize.add_item(unit)
+
+        self.doc.append(
+            'Number of units in scope: ' +
+            f'{len(self.output.globvars.included_teams)}')
+
     def generate_report(self) -> None:
         """
         Generate the report.
         """
 
         self.generate_title_pages()
-
-        # Placeholder to show how to add section title
-        # self.doc.append(pylatex.Section('Introduction'))
+        self.generate_chapter_units_in_scope()
 
     def save(self, filename: str) -> None:
         """
