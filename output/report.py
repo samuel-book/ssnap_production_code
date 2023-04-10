@@ -49,7 +49,7 @@ class Report(object):
         # Store the output from the SAMuel model
         self.output: Output = output
 
-        # Create a new pylatex document
+        # Create a new empty pylatex document
         self.doc: pylatex.Document = pylatex.Document()
 
     def add_packages(self) -> None:
@@ -64,7 +64,8 @@ class Report(object):
 
     def generate_title_pages(self) -> None:
         """
-        Generate the title pages.
+        Generate the title page, and table of contents.
+        Includes adding required LaTeX packages.
         """
         # Add packages
         self.add_packages()
@@ -90,7 +91,7 @@ class Report(object):
         txt = (
             'For units to be in scope thay must have an average number ' +
             'of yearly admissions of at least ' +
-            f'{self.output.globvars.minimum_admissions_per_year} and an ' +
+            f'{self.output.globvars.minimum_admissions_per_year}, and an ' +
             'average number of yearly thrombolysed patients of at least ' +
             f'{self.output.globvars.minimum_thrombolysis_per_year}.\n\n')
         self.doc.append(txt)
@@ -107,8 +108,10 @@ class Report(object):
 
         self.doc.append('Units included:')
 
-        # Change text size to small and create list of units in scope
+        # Change text size to small
         self.doc.append(pylatex.Command('footnotesize'))
+
+        # List included units
         with self.doc.create(pylatex.Itemize()) as itemize:
             # Add each item from the Python list to the itemized list
             for unit in self.output.globvars.included_teams:
@@ -118,6 +121,7 @@ class Report(object):
     def generate_report(self) -> None:
         """
         Generate the report.
+        This method calls separate methods to compile the report
         """
 
         self.generate_title_pages()
@@ -125,7 +129,7 @@ class Report(object):
 
     def save(self, filename: str) -> None:
         """
-        Save the report to a file.
+        Save the report to a file: Creates .tex, .toc, and .pdf files.
         """
 
         self.doc.generate_pdf(filename, clean_tex=False)
