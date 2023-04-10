@@ -16,22 +16,27 @@ class GlobVars:
         ----------
 
         excluded_teams: list
-            The list of stroke teams excluded from the analysis, as obtained by applying
-            prescribed limits to the data.
-        
+            The list of stroke teams excluded from the analysis, as obtained by
+            applying prescribed limits to the data.
+
         included_teams: list
-            The list of stroke teams included in the analysis, as obtained by applying
-            prescribed limits to the data.
-        
+            The list of stroke teams included in the analysis, as obtained by
+            applying prescribed limits to the data.
+
         minimum_admissions_per_year: float
-            The minimum number of admissions per year to be included in the analysis.
-        
+            The minimum number of admissions per year to be included in the
+            analysis.
+
         minimum_thrombolysis_per_year: float
-            The minimum number of thrombolysis per year to be included in the analysis.
-        
+            The minimum number of thrombolysis per year to be included in the
+            analysis.
+
+        refit_ml_models: bool
+            Whether to refit the machine learning models.
+
         year_end: int
             The last year of the data to be used in the analysis.
-        
+
         year_start: int
             The first year of the data to be used in the analysis.
         """
@@ -40,11 +45,11 @@ class GlobVars:
         self.included_teams: list = []
         self.minimum_admissions_per_year: float = 100
         self.minimum_thrombolysis_per_year: float = 3.3
+        self.refit_ml_models: bool = True
         self.year_end: int = 2019
         self.year_start: int = 2017
-    
 
-        # Update the GlobVars object with keyword arguments passed to the constructor
+        # Update the GlobVars object from imput arguments
         self.__dict__.update(args)
         self.__dict__.update(kwargs)
 
@@ -53,7 +58,6 @@ class GlobVars:
 
         # Restrict data
         self.reset_data()
-        
 
     def load_data(self):
         """
@@ -68,7 +72,7 @@ class GlobVars:
         """
 
         number_of_years: int = self.year_end - self.year_start + 1
-        
+
         # Create groupy object, by stroke team
         groupby = self.original_data.groupby('stroke team')
 
@@ -78,12 +82,13 @@ class GlobVars:
             # Include the group by default
             include = True
 
-            # If the number of admissions is less than the minimum, drop the group
+            # Check number of admissions
             if len(group) / number_of_years < self.minimum_admissions_per_year:
                 include = False
 
-            # If the number of thrombolysis is less than the minimum, drop the group
-            elif group['thrombolysis'].sum() / number_of_years < self.minimum_thrombolysis_per_year:
+            # Check number of thrombolysis
+            elif (group['thrombolysis'].sum() / number_of_years
+                  < self.minimum_thrombolysis_per_year):
                 include = False
 
             # If the group is to be included, append it to included teams list
@@ -92,15 +97,11 @@ class GlobVars:
 
         # Filter the original data to include only the included teams
         self.restricted_data = \
-            self.original_data[self.original_data['stroke team'].isin(self.included_teams)]
-        
+            self.original_data[self.original_data['stroke team'].isin(
+                self.included_teams)]
+
         # Get list of excluded teams
         self.excluded_teams = \
-            list(set(self.original_data['stroke team'].unique()) - set(self.included_teams))
+            list(set(self.original_data['stroke team'].unique()) - set(
+                self.included_teams))
         self.excluded_teams.sort()
-
-
-
-
-
-
