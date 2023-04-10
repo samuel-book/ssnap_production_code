@@ -54,7 +54,9 @@ class Report(object):
         Add packages to the report.
         """
 
-        pass
+        self.doc.packages.append(pylatex.Package('geometry', options=[
+            'a4paper', 'margin=2cm']))
+        self.doc.packages.append(pylatex.Package('microtype'))
 
     def generate_title_pages(self) -> None:
         """
@@ -84,16 +86,17 @@ class Report(object):
             'of yearly admissions of at least ' +
             f'{self.output.globvars.minimum_admissions_per_year} and an ' +
             'average number of yearly thrombolysed patients of at least ' +
-            f'{self.output.globvars.minimum_thrombolysis_per_year}.')
+            f'{self.output.globvars.minimum_thrombolysis_per_year}.\n')
 
         self.doc.append(txt)
-        self.doc.append(pylatex.LineBreak())
 
-        # Create LaTeX list of units in scope
+        # Change text size to small and create list of units in scope
+        self.doc.append(pylatex.Command('footnotesize'))
         with self.doc.create(pylatex.Itemize()) as itemize:
             # Add each item from the Python list to the itemized list
             for unit in self.output.globvars.included_teams:
                 itemize.add_item(unit)
+        self.doc.append(pylatex.Command('normalsize'))
 
         self.doc.append(
             'Number of units in scope: ' +
