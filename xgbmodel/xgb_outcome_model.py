@@ -20,5 +20,7 @@ class XGBOutcomeModel(object):
         # Set up global variables
         self.globvars: GlobVars = globvars
 
-        # Restrict data (e.g. arrive by ambulance)
-        # Any need for imputation?
+        # Select the data (use only patients arriving by ambulance)
+        mask = self.globvars.data['arrive by ambulance'] == 1
+        self.data = \
+            self.globvars.data[mask][self.globvars.xgb_thrombolysis_features]

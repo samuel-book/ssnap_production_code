@@ -44,8 +44,8 @@ class GlobVars:
         self.excluded_teams: list = []
         self.included_teams: list = []
         self.minimum_admissions_per_year: float = 100
-        self.minimum_thrombolysis_per_year: float = 3.3
-        self.refit_ml_models: bool = True
+        self.minimum_thrombolysis_per_year: float = 3
+        self.rerun_models: bool = True
         self.year_end: int = 2019
         self.year_start: int = 2017
 
@@ -59,15 +59,18 @@ class GlobVars:
         # Restrict data
         self.restrict_data()
 
-    def load_data(self):
+    def load_data(self) -> None:
         """
         Load data into the global variables object.
         """
 
         self.original_data: pd.DataFrame = pd.read_csv('./data/data.csv')
 
+        # Shuffle the data
+        self.original_data = self.original_data.sample(frac=1)
+
         required_fields: list = [
-            'stroke team', 'age', 'male', 'infarction',
+            'stroke team', 'age', 'male', 'infarction', 'stroke severity',
             'onset-to-arrival time', 'onset known', 'precise onset known',
             'onset during sleep', 'arrive by ambulance', 'year',
             'use of AF anticoagulants', 'prior disability',
@@ -76,8 +79,8 @@ class GlobVars:
         ]
 
         self.xgb_thrombolysis_fields: list = [
-            'stroke team', 'age', 'male', 'infarction',
-            'onset-to-arrival time', 'onset known', 'precise onset known',
+            'stroke team', 'age', 'male', 'infarction', 'stroke severity',
+            'onset-to-arrival time', 'precise onset known',
             'onset during sleep', 'use of AF anticoagulants',
             'prior disability', 'arrival-to-scan time', 'thrombolysis'
         ]
@@ -124,9 +127,8 @@ class GlobVars:
                 self.included_teams.append(stroke_team)
 
         # Filter the original data to include only the included teams
-        self.restricted_data = \
-            self.original_data[self.original_data['stroke team'].isin(
-                self.included_teams)]
+        self.restricted_data = (restricted_years_data[
+            restricted_years_data['stroke team'].isin(self.included_teams)])
 
         # Get list of excluded teams
         self.excluded_teams = \

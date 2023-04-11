@@ -1,7 +1,7 @@
 """
 Samual module.
 
-This is the main co-ordinating packages.
+This is the main co-ordinating module.
 
 It contains the Samuel class.
 
@@ -68,5 +68,7 @@ class Samuel(object):
         Run the Samuel simulation.
         """
 
-        self.report.generate_report()
-        self.report.save('./output/report/report')
+        self.XGBThrombolysisModel.validate_model()
+        #self.report.generate_report()
+        #self.report.save('./output/report/report')
+        
