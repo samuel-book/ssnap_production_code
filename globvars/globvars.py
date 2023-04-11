@@ -76,7 +76,7 @@ class GlobVars:
         ]
 
         self.xgb_thrombolysis_fields: list = [
-            'stroke team', 'age', 'male', 'infarction', 
+            'stroke team', 'age', 'male', 'infarction',
             'onset-to-arrival time', 'onset known', 'precise onset known',
             'onset during sleep', 'use of AF anticoagulants',
             'prior disability', 'arrival-to-scan time', 'thrombolysis'
