@@ -1,7 +1,8 @@
-from globvars import GlobVars
+from globvars.globvars import GlobVars
 from output.output import Output
 from output.report import Report
-from xgbmodel.xbg_model import XGBModel
+from xgbmodel.xbg_model import XGBThrombolysisModel
+
 
 class Samuel(object):
     """
@@ -48,6 +49,10 @@ class Samuel(object):
         # Set up output and report objects
         self.output: Output = Output(self.globvars)
         self.report: Report = Report(self.output)
+
+        # Set up the XGB model
+        self.XGBThrombolysisModel: XGBThrombolysisModel = \
+            XGBThrombolysisModel(self.globvars)
 
     def run(self) -> None:
         """

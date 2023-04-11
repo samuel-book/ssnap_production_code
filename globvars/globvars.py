@@ -71,8 +71,15 @@ class GlobVars:
             'onset-to-arrival time', 'onset known', 'precise onset known',
             'onset during sleep', 'arrive by ambulance', 'year',
             'use of AF anticoagulants', 'prior disability',
-            'arrival-to-scan time', 'thrombolysis', 
+            'arrival-to-scan time', 'thrombolysis',
             'scan-to-thrombolysis time', 'death', 'discharge disability'
+        ]
+
+        self.xgb_thrombolysis_fields: list = [
+            'stroke team', 'age', 'male', 'infarction', 
+            'onset-to-arrival time', 'onset known', 'precise onset known',
+            'onset during sleep', 'use of AF anticoagulants',
+            'prior disability', 'arrival-to-scan time', 'thrombolysis'
         ]
 
         # Check required fields are present
@@ -82,7 +89,8 @@ class GlobVars:
 
     def restrict_data(self):
         """
-        Restrict the data to prescribed limits
+        Restrict the data to prescribed limits of years, admissions and
+        thrombolysis.
         """
 
         # Limit data to years of interest

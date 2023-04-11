@@ -1,4 +1,4 @@
-from globvars import GlobVars
+from globvars.globvars import GlobVars
 
 
 class Output(object):

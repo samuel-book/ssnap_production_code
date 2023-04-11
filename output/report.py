@@ -6,6 +6,7 @@ This class builds and saves the report.
 
 import pylatex
 
+from globvars.globvars import GlobVars
 from output.output import Output
 
 
