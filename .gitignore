@@ -5,6 +5,7 @@ temp/
 output/images/
 output/report/
 .vscode/
+sussex/
 
 
 # Ignore file types that may contain data or models or results
